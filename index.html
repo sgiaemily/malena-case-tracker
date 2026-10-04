@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malena McKnight – Depo-Provera Case Tracker & Legal Contract Analyzer</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    code, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .badge-dealbreaker {
+      background-color: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .badge-pass {
+      background-color: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white shadow-md">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">CaseTracker</h1>
+              <span class="text-[11px] bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full font-bold">Depo-Provera Claim</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium">Claimant: Malena McKnight &bull; Waycross, GA</p>
+          </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <button id="quickAddCheckBtn" class="inline-flex items-center px-3 py-1.5 border border-amber-300 text-xs font-semibold rounded-lg text-amber-900 bg-amber-50 hover:bg-amber-100 transition shadow-xs">
+            <svg class="w-4 h-4 mr-1.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Log Check</span>
+            <span id="checkNoticeBadge" class="ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-600 text-white font-bold hidden">0</span>
+          </button>
+          
+          <button id="addFirmBtn" class="inline-flex items-center px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold rounded-lg shadow-xs transition">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Law Firm</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex space-x-2 sm:space-x-4 border-t border-slate-100 pt-2 overflow-x-auto text-xs font-semibold text-slate-600">
+        <button data-tab="firms" class="tab-link active py-2.5 px-3 border-b-2 border-sky-600 text-sky-700 flex items-center space-x-1.5 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          <span>Firms &amp; Contract Analysis</span>
+          <span id="firmCountPill" class="ml-1 px-1.5 py-0.5 text-[10px] bg-sky-100 text-sky-800 rounded-full font-bold">6</span>
+        </button>
+        
+        <button data-tab="compare" class="tab-link py-2.5 px-3 border-b-2 border-transparent hover:text-slate-900 flex items-center space-x-1.5 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          <span>Dealbreaker Matrix</span>
+        </button>
+
+        <button data-tab="checks" class="tab-link py-2.5 px-3 border-b-2 border-transparent hover:text-slate-900 flex items-center space-x-1.5 whitespace-nowrap relative">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Checks Received &amp; Expiration</span>
+          <span id="activeCheckBadge" class="ml-1 px-1.5 py-0.5 text-[10px] bg-amber-100 text-amber-900 rounded-full font-bold">0</span>
+        </button>
+
+        <button data-tab="questions" class="tab-link py-2.5 px-3 border-b-2 border-transparent hover:text-slate-900 flex items-center space-x-1.5 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          <span>Intake Calling Script &amp; 8 Questions</span>
+        </button>
+
+        <button data-tab="caseinfo" class="tab-link py-2.5 px-3 border-b-2 border-transparent hover:text-slate-900 flex items-center space-x-1.5 whitespace-nowrap">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>Malena's Case Dossier &amp; Vault</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+    
+    <!-- Urgent Check Expiration Alert Banner -->
+    <div id="urgentAlertBox" class="mb-6 hidden bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl shadow-xs">
+      <div class="flex items-start">
+        <div class="flex-shrink-0 text-amber-500">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div class="ml-3 flex-1">
+          <h3 class="text-sm font-bold text-amber-900" id="urgentAlertTitle">Check Expiration Notice</h3>
+          <div class="mt-1 text-xs text-amber-800 leading-relaxed" id="urgentAlertMessage">
+            You have received checks that require deposit before their bank expiration date!
+          </div>
+        </div>
+        <div class="ml-auto pl-3">
+          <button onclick="switchTab('checks')" class="text-xs font-bold text-amber-900 underline hover:text-amber-950">View Checks &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contract Review Summary Warning Card for Pulaski (Malena's Initial Contract) -->
+    <div id="pulaskiWarningHero" class="mb-6 bg-gradient-to-r from-rose-50 via-red-50 to-orange-50 border border-red-200 rounded-2xl p-5 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start space-x-3.5">
+          <div class="p-2.5 bg-red-100 text-red-700 rounded-xl shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-red-800 bg-red-100 px-2 py-0.5 rounded">Contract Scanner Results</span>
+              <span class="text-xs text-slate-500 font-medium">Pulaski Kherkher contract parsed</span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900 mt-1">6 Red Flags &amp; Dealbreakers Detected in Current Contract Offer</h2>
+            <p class="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed">
+              Automated audit of the received Pulaski contract detected: 
+              <strong class="text-red-700">1.5% monthly expense interest (18%/yr)</strong>, 
+              <strong class="text-red-700">$200 setup fee + Torticity/Archer pass-through</strong>, 
+              <strong class="text-red-700">Patient portal login password requisition (Page 6)</strong>, 
+              <strong class="text-red-700">Signature transfer Power of Attorney (Page 4)</strong>, and 
+              <strong class="text-red-700">90-day evaluation disclaimer on filing deadlines</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="flex shrink-0 items-center space-x-2">
+          <button onclick="openOfferCalculatorModal()" class="px-3.5 py-2 bg-white border border-red-300 text-red-700 font-semibold text-xs rounded-xl shadow-xs hover:bg-red-50 transition flex items-center">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            Net Payout Calculator
+          </button>
+          <button onclick="switchTab('compare')" class="px-3.5 py-2 bg-red-600 text-white font-semibold text-xs rounded-xl shadow-xs hover:bg-red-700 transition">
+            View Matrix
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-firms" class="tab-content">
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Law Firms &amp; Outreach Tracker</h2>
+          <p class="text-xs text-slate-500">Record outreach calls, notes, proposals, analyze fee agreements, and compare against Malena's criteria.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="relative">
+            <input type="text" id="firmSearchInput" placeholder="Search firms, status..." class="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent w-44 sm:w-60">
+            <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+          <select id="firmFilterStatus" class="text-xs border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-sky-500">
+            <option value="ALL">All Statuses</option>
+            <option value="Contract Received">Contract Received</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Outreach / Call Needed">Outreach / Call Needed</option>
+            <option value="Disqualified">Disqualified</option>
+            <option value="Preferred / Finalist">Preferred / Finalist</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Firm Cards Grid -->
+      <div id="firmsGrid" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <div id="tab-compare" class="tab-content hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Automated Counsel Comparison Matrix</h2>
+          <p class="text-xs text-slate-500">Side-by-side evaluation against the 8 core intake questions. Red flags signal costly or unfair contract terms.</p>
+        </div>
+        <div class="flex items-center space-x-2 text-xs">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-emerald-800 bg-emerald-100 font-semibold"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>Ideal / Pass</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-red-800 bg-red-100 font-semibold"><span class="w-2 h-2 rounded-full bg-red-500 mr-1.5"></span>Dealbreaker / Fail</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-slate-600 bg-slate-100 font-semibold"><span class="w-2 h-2 rounded-full bg-slate-400 mr-1.5"></span>Pending Outreach</span>
+        </div>
+      </div>
+
+      <div class="mt-6 overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-xs">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+              <th class="p-3.5 sticky left-0 bg-slate-50 z-10 w-52">Question / Intake Metric</th>
+              <th class="p-3.5 min-w-[130px] text-center">Pulaski Kherkher</th>
+              <th class="p-3.5 min-w-[130px] text-center">Harding Mazzotti</th>
+              <th class="p-3.5 min-w-[130px] text-center">Gibbs Law Group</th>
+              <th class="p-3.5 min-w-[130px] text-center">Laminack Pirtle (LPM)</th>
+              <th class="p-3.5 min-w-[130px] text-center">AWKO Law</th>
+              <th class="p-3.5 min-w-[130px] text-center">Levin Papantonio</th>
+            </tr>
+          </thead>
+          <tbody id="matrixTableBody" class="divide-y divide-slate-100">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Quick Analysis Takeaway Box -->
+      <div class="mt-6 bg-slate-900 text-white rounded-2xl p-5 shadow-xs">
+        <div class="flex items-center space-x-2 text-sky-400 font-semibold text-xs uppercase tracking-wider">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>Key Findings on Pulaski's Contract</span>
+        </div>
+        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+          <strong class="text-white">Why 1.5% monthly expense interest is dangerous:</strong> On complex mass tort litigations taking 2 to 4 years with $30,000+ in depositions, medical expert reports, and filing expenses, charging 1.5% interest per month (18% per year) takes an extra <strong>$13,500 to $21,600+ directly out of Malena's recovery</strong>. Standard ethical mass tort trial firms advance these costs with <strong>0% interest</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div id="tab-checks" class="tab-content hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Checks Received &amp; Expiration Safeguard</h2>
+          <p class="text-xs text-slate-500">Track reimbursements, medical record advance refunds, or settlement disbursements with built-in stale check reminders (90–180 days).</p>
+        </div>
+        <div>
+          <button onclick="openAddCheckModal()" class="inline-flex items-center px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl shadow-xs transition">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Add New Check
+          </button>
+        </div>
+      </div>
+
+      <!-- Financial Overview Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-6">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Total Received</span>
+          <div class="text-xl font-bold text-slate-900 mt-1" id="totalChecksAmount">$0.00</div>
+          <span class="text-[11px] text-slate-400" id="totalChecksCount">0 check(s) recorded</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span class="text-[11px] font-semibold text-amber-600 uppercase tracking-wider">Pending Deposit</span>
+          <div class="text-xl font-bold text-amber-600 mt-1" id="pendingChecksAmount">$0.00</div>
+          <span class="text-[11px] text-slate-400" id="pendingChecksCount">0 need to be cashed</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs">
+          <span class="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider">Successfully Cashed</span>
+          <div class="text-xl font-bold text-emerald-600 mt-1" id="cashedChecksAmount">$0.00</div>
+          <span class="text-[11px] text-slate-400" id="cashedChecksCount">0 deposited</span>
+        </div>
+        <div class="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/40 shadow-xs">
+          <span class="text-[11px] font-semibold text-rose-600 uppercase tracking-wider">Urgent / Expiring Soon</span>
+          <div class="text-xl font-bold text-rose-700 mt-1" id="expiringChecksCount">0</div>
+          <span class="text-[11px] text-rose-500 font-medium">Expires in &lt; 14 days or Stale</span>
+        </div>
+      </div>
+
+      <!-- Checks List Table -->
+      <div class="mt-6 bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between">
+          <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Check Inventory &amp; Expiration Dates</h3>
+          <span class="text-[11px] text-slate-500">Legal disbursement &amp; corporate checks typically void at 90 to 180 days</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+              <tr>
+                <th class="p-3">Check / Sender</th>
+                <th class="p-3">Amount</th>
+                <th class="p-3">Issue Date</th>
+                <th class="p-3">Expiration Date</th>
+                <th class="p-3">Status / Days Left</th>
+                <th class="p-3">Attached Photo / Doc</th>
+                <th class="p-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="checksTableBody" class="divide-y divide-slate-100">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-questions" class="tab-content hidden">
+      <div class="pb-4 border-b border-slate-200">
+        <h2 class="text-lg font-bold text-slate-900">Malena's Intake Calling Script &amp; Questionnaire</h2>
+        <p class="text-xs text-slate-500">Use this exact script and question list during intake calls or email consultations to protect your payout and privacy.</p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" id="intakeQuestionsContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <div id="tab-caseinfo" class="tab-content hidden">
+      <div class="pb-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Malena McKnight's Case Dossier &amp; Vault</h2>
+          <p class="text-xs text-slate-500">Personal contact records, Depo-Provera exposure dates, imaging notes, uploaded contract scans, and private records.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <label class="cursor-pointer inline-flex items-center px-3 py-1.5 bg-slate-800 text-white rounded-xl text-xs font-semibold hover:bg-slate-900 transition shadow-xs">
+            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>Upload Photo / File</span>
+            <input type="file" id="dossierFileInput" class="hidden" accept="image/*,.pdf,.doc,.docx" multiple onchange="handleDossierFileUpload(event)">
+          </label>
+        </div>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Client Profile Card -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-lg">
+              MM
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-sm">Malena McKnight</h3>
+              <p class="text-xs text-slate-500">Claimant &bull; Depo-Provera Meningioma</p>
+            </div>
+          </div>
+          <div class="space-y-3 text-xs border-t border-slate-100 pt-3">
+            <div>
+              <span class="text-slate-400 block font-medium">Home Address</span>
+              <span class="text-slate-800 font-semibold">1401 Clough Street, Waycross, GA 31501</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block font-medium">Phone Number</span>
+              <span class="text-slate-800 font-semibold">(912) 709-5314</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block font-medium">Email Address</span>
+              <span class="text-slate-800 font-semibold">malenamcknight36@gmail.com</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block font-medium">Date of Birth</span>
+              <span class="text-slate-800 font-semibold">May 5, 1986</span>
+            </div>
+            <div>
+              <span class="text-slate-400 block font-medium">Initial Contract Received Date</span>
+              <span class="text-slate-800 font-semibold">September 7, 2026 (Pulaski Kherkher)</span>
+            </div>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-slate-100">
+            <span class="text-[11px] font-bold text-slate-600 uppercase tracking-wider block mb-2">Claim Quick Checklist</span>
+            <div class="space-y-2 text-xs text-slate-600">
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" checked class="rounded text-sky-600 focus:ring-sky-500">
+                <span>Depo-Provera shot exposure records located</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" checked class="rounded text-sky-600 focus:ring-sky-500">
+                <span>Brain MRI / CT scan reports obtained</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" checked class="rounded text-sky-600 focus:ring-sky-500">
+                <span>Intracranial meningioma diagnosis documented</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" class="rounded text-sky-600 focus:ring-sky-500">
+                <span>Retainer signed with preferred counsel</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case Notes & Outreach Logs -->
+        <div class="lg:col-span-2 space-y-6">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Malena's Confidential Case Notes</h3>
+              <button onclick="saveCaseNotes()" class="text-xs font-semibold text-sky-600 hover:text-sky-700">Save Note</button>
+            </div>
+            <textarea id="generalCaseNotes" rows="5" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500 focus:outline-none" placeholder="Type personal reminders, questions for the lawyer, call logs, doctor consultation records..."></textarea>
+          </div>
+
+          <!-- Uploaded Documents & Photos Section -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Attached Documents, Contracts &amp; Photos</h3>
+              <span class="text-xs text-slate-400" id="fileCountBadge">2 files</span>
+            </div>
+            <div id="dossierFilesList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  
+  <!-- MODAL: Add / Edit Firm -->
+  <div id="firmModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 id="firmModalTitle" class="text-base font-bold text-slate-900">Add Law Firm for Outreach</h3>
+        <button onclick="closeFirmModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="firmForm" onsubmit="handleFirmFormSubmit(event)" class="mt-4 space-y-4 text-xs">
+        <input type="hidden" id="editFirmId">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Law Firm Name *</label>
+            <input type="text" id="firmNameInput" required class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Co-Counsel / Contact Person</label>
+            <input type="text" id="firmContactInput" placeholder="e.g. Robin Law, Intake Dept" class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Phone Number</label>
+            <input type="text" id="firmPhoneInput" placeholder="(800) 000-0000" class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Email / Website</label>
+            <input type="text" id="firmEmailInput" placeholder="intake@lawfirm.com" class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Current Status</label>
+            <select id="firmStatusSelect" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+              <option value="Outreach / Call Needed">Outreach / Call Needed</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Contract Received">Contract Received</option>
+              <option value="Preferred / Finalist">Preferred / Finalist</option>
+              <option value="Disqualified">Disqualified</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Contingency Fee % Offered</label>
+            <input type="text" id="firmFeeInput" placeholder="e.g. 33.3% or 40%" class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100">
+          <label class="block font-bold text-slate-800 mb-2">Automated Contract Analysis / Intake Criteria:</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">1. Expense Interest Rate</label>
+              <select id="chkInterest" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">0% Interest (Standard Ideal)</option>
+                <option value="FAIL">Charges Interest (e.g. 1.5%/mo or 18%/yr - Dealbreaker)</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">2. Admin / File Setup Fee</label>
+              <select id="chkAdmin" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">$0 (Absorbed by firm)</option>
+                <option value="FAIL">Passes $200+ fee / 3rd-party admin fee (Dealbreaker)</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">3. Fee Base Calculation</label>
+              <select id="chkFeeBase" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">Net Recovery (After costs deducted)</option>
+                <option value="FAIL">Gross Recovery (Fee taken before costs)</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">4. Portal Password Requested?</label>
+              <select id="chkPortal" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">No (HIPAA exchange only)</option>
+                <option value="FAIL">Yes (Demands patient portal username & password)</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">5. Signature Transfer / Stamping POA</label>
+              <select id="chkSignature" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">No (Client signs specific records releases)</option>
+                <option value="FAIL">Yes (POA to stamp signature onto other forms)</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-medium text-slate-700 mb-1">6. Statute of Limitations / Eval Period</label>
+              <select id="chkEvaluation" class="w-full p-1.5 border border-slate-300 rounded-lg bg-white">
+                <option value="PASS">Protects filing deadline actively</option>
+                <option value="FAIL">Disclaims SoL during 90+ day evaluation</option>
+                <option value="UNKNOWN">Not Asked / Unverified</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Call Logs &amp; Intake Notes</label>
+          <textarea id="firmNotesInput" rows="3" class="w-full p-2 border border-slate-300 rounded-lg" placeholder="Notes from phone conversation, attorney responses, questions asked..."></textarea>
+        </div>
+
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-200">
+          <button type="button" onclick="closeFirmModal()" class="px-4 py-2 text-slate-600 hover:text-slate-800 font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-xs">Save Law Firm</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Add / Edit Check Received -->
+  <div id="checkModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 id="checkModalTitle" class="text-base font-bold text-slate-900">Log Check Received</h3>
+        <button onclick="closeCheckModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="checkForm" onsubmit="handleCheckFormSubmit(event)" class="mt-4 space-y-4 text-xs">
+        <input type="hidden" id="editCheckId">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Issuer / Law Firm / Payer *</label>
+          <input type="text" id="checkPayer" required placeholder="e.g. Settlement Escrow, Pulaski, Court Clerk..." class="w-full p-2 border border-slate-300 rounded-lg">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Check Number</label>
+            <input type="text" id="checkNumber" placeholder="# 10482" class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Amount ($) *</label>
+            <input type="number" step="0.01" id="checkAmount" required placeholder="0.00" class="w-full p-2 border border-slate-300 rounded-lg font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Date Received / Issued *</label>
+            <input type="date" id="checkIssueDate" required class="w-full p-2 border border-slate-300 rounded-lg">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Expiration / Void Date *</label>
+            <input type="date" id="checkExpireDate" required class="w-full p-2 border border-slate-300 rounded-lg">
+            <span class="text-[10px] text-slate-400">Usually 90 or 180 days from issue</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Deposit Status</label>
+          <select id="checkStatus" class="w-full p-2 border border-slate-300 rounded-lg bg-white">
+            <option value="Pending Deposit">Pending Deposit (Needs Cashing)</option>
+            <option value="Successfully Cashed">Successfully Cashed / Deposited</option>
+            <option value="Voided / Re-issued">Voided / Re-issued</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Upload Check Photo / Scan</label>
+          <input type="file" id="checkPhotoInput" accept="image/*,.pdf" class="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+          <div id="checkPhotoPreviewContainer" class="mt-2 hidden">
+            <img id="checkPhotoPreviewImg" src="" alt="Check Preview" class="h-24 w-auto rounded border object-cover">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Notes / Description</label>
+          <input type="text" id="checkMemo" placeholder="e.g. Travel reimbursement, initial distribution..." class="w-full p-2 border border-slate-300 rounded-lg">
+        </div>
+
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-200">
+          <button type="button" onclick="closeCheckModal()" class="px-4 py-2 text-slate-600 hover:text-slate-800 font-semibold">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-xs">Save Check</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Financial Offer Comparison Calculator -->
+  <div id="calculatorModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">Expense Interest Impact Calculator</h3>
+          <p class="text-xs text-slate-500">See how Pulaski's 1.5%/month expense interest drastically shrinks your net payout.</p>
+        </div>
+        <button onclick="closeCalculatorModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4 text-xs">
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Gross Settlement ($)</label>
+            <input type="number" id="calcGross" value="350000" class="w-full p-2 border border-slate-300 rounded-lg font-mono">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Case Expenses ($)</label>
+            <input type="number" id="calcExpenses" value="30000" class="w-full p-2 border border-slate-300 rounded-lg font-mono">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Litigation Years</label>
+            <input type="number" id="calcYears" value="2.5" step="0.5" class="w-full p-2 border border-slate-300 rounded-lg font-mono">
+          </div>
+        </div>
+
+        <button onclick="runCalculator()" class="w-full py-2 bg-slate-800 text-white rounded-lg font-bold text-xs hover:bg-slate-900 transition">Recalculate Comparison</button>
+
+        <div class="grid grid-cols-2 gap-4 pt-2">
+          <!-- Standard 0% Interest Retainer -->
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3.5">
+            <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block">Standard Retainer (0% Interest)</span>
+            <div class="mt-2 space-y-1.5 text-xs text-slate-700">
+              <div class="flex justify-between"><span>Fee (40%):</span> <strong id="resFairFee">$140,000</strong></div>
+              <div class="flex justify-between"><span>Expenses:</span> <strong id="resFairExp">$30,000</strong></div>
+              <div class="flex justify-between"><span>Expense Interest:</span> <strong class="text-emerald-700">$0.00</strong></div>
+              <div class="flex justify-between border-t border-emerald-200 pt-1 text-slate-900 font-bold">
+                <span>Malena Takes Home:</span>
+                <span class="text-emerald-700 text-sm font-extrabold" id="resFairNet">$180,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pulaski 1.5%/Month Interest -->
+          <div class="bg-rose-50 border border-rose-200 rounded-xl p-3.5">
+            <span class="text-xs font-bold text-rose-800 uppercase tracking-wider block">Pulaski Terms (1.5%/mo Interest)</span>
+            <div class="mt-2 space-y-1.5 text-xs text-slate-700">
+              <div class="flex justify-between"><span>Fee (40%):</span> <strong id="resPredFee">$140,000</strong></div>
+              <div class="flex justify-between"><span>Expenses:</span> <strong id="resPredExp">$30,000</strong></div>
+              <div class="flex justify-between"><span>1.5%/mo Interest:</span> <strong class="text-rose-600" id="resPredInt">$13,500</strong></div>
+              <div class="flex justify-between border-t border-rose-200 pt-1 text-slate-900 font-bold">
+                <span>Malena Takes Home:</span>
+                <span class="text-rose-700 text-sm font-extrabold" id="resPredNet">$166,500</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 p-3 rounded-lg text-amber-800 text-[11px] leading-relaxed">
+          <strong class="font-bold">Difference to Malena:</strong> You would lose an extra <span class="font-bold text-rose-700" id="calcDiff">$13,500+</span> out of your pocket simply from the expense interest alone.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Photo / File Preview Modal -->
+  <div id="imagePreviewModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-white rounded-2xl max-w-3xl w-full p-4 shadow-2xl flex flex-col max-h-[90vh]">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+        <h3 id="previewTitle" class="text-xs font-bold text-slate-800">Document Preview</h3>
+        <button onclick="closePreviewModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="flex-1 overflow-auto flex items-center justify-center p-2">
+        <img id="previewImageElement" src="" alt="Preview" class="max-h-[70vh] w-auto rounded object-contain">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initial Law Firms loaded with analysis from the questionnaire and contract
+    let lawFirms = [
+      {
+        id: 'firm-pulaski',
+        name: 'Pulaski Kherkher, PLLC',
+        coCounsel: 'Robin Law PLLC & Robin Raynish PLLC',
+        phone: '(713) 664-4555 / (800) 711-8989',
+        email: 'intake@pulaskilawfirm.com',
+        website: 'www.pulaskilawfirm.com',
+        address: '2925 Richmond Ave, Ste 1725, Houston, TX 77098',
+        status: 'Contract Received',
+        fee: '40% Contingency (16% Pulaski, 16% Robin Law, 8% Robin Raynish)',
+        contractReceivedDate: '2026-09-07',
+        metrics: {
+          interest: { status: 'FAIL', detail: '1.5% monthly (18% annual) interest on advanced expenses' },
+          adminFee: { status: 'FAIL', detail: '$200 flat file opening fee + 3rd-party admin fee (Archer/Torticity) billed to client' },
+          feePct: { status: 'PASS', detail: '40% (Standard contingency max)' },
+          feeBase: { status: 'FAIL', detail: 'Calculated off gross recovery before expense deduction' },
+          portalPassword: { status: 'FAIL', detail: 'Contract requests patient online portal username & password (Page 6)' },
+          signatureStamping: { status: 'FAIL', detail: 'Limited POA to digitally transfer signature to outside records requests (Page 4)' },
+          evaluationWindow: { status: 'FAIL', detail: '90-day minimum review; disclaims liability if statute of limitations expires during investigation' },
+          meningiomaScreening: { status: 'PASS', detail: 'Requests specific imaging, MRI/CT, and surgical pathology reports' }
+        },
+        notes: 'Malena received this contract on 09/07/2026. Automated analysis detected 6 RED FLAGS / Dealbreakers. Charged 1.5% monthly interest on expenses will drastically reduce Malena’s payout. Requests personal medical portal password.',
+        dealbreakerCount: 6,
+        passCount: 2
+      },
+      {
+        id: 'firm-harding',
+        name: 'Harding Mazzotti, LLP',
+        coCounsel: 'None noted',
+        phone: '(800) 529-1234',
+        email: 'intake@1800law1010.com',
+        website: 'www.1800law1010.com',
+        address: 'New York / Multi-State Depo Provera Team',
+        status: 'Outreach / Call Needed',
+        fee: 'Pending Verification (Typically 33.3% - 40%)',
+        contractReceivedDate: '',
+        metrics: {
+          interest: { status: 'UNKNOWN', detail: 'Needs intake inquiry: Do you charge 0% interest on advanced costs?' },
+          adminFee: { status: 'UNKNOWN', detail: 'Needs intake inquiry: Are admin and vendor fees absorbed?' },
+          feePct: { status: 'UNKNOWN', detail: 'Verify fee %' },
+          feeBase: { status: 'UNKNOWN', detail: 'Verify whether calculated off gross or net recovery' },
+          portalPassword: { status: 'UNKNOWN', detail: 'Ask if standard HIPAA release is used without asking for logins' },
+          signatureStamping: { status: 'UNKNOWN', detail: 'Confirm client signs each release manually' },
+          evaluationWindow: { status: 'UNKNOWN', detail: 'Confirm tolling agreement and active deadline protection' },
+          meningiomaScreening: { status: 'UNKNOWN', detail: 'Check intake requirements for MRI/CT confirmed meningioma' }
+        },
+        notes: 'Listed on intake list. Ready for Malena to call using the 8-question script.',
+        dealbreakerCount: 0,
+        passCount: 0
+      },
+      {
+        id: 'firm-gibbs',
+        name: 'Gibbs Law Group (Gibbs Mura)',
+        coCounsel: 'National Complex Litigation Counsel',
+        phone: '(510) 350-9700 / (800) 254-9493',
+        email: 'info@classlawgroup.com',
+        website: 'www.classlawgroup.com',
+        address: 'Oakland, CA / Nationwide Co-Lead Counsel',
+        status: 'Outreach / Call Needed',
+        fee: '33.3% - 40% Contingency',
+        contractReceivedDate: '',
+        metrics: {
+          interest: { status: 'PASS', detail: '0% expense interest (Absorbs cost financing internally)' },
+          adminFee: { status: 'PASS', detail: '$0 administrative opening fee' },
+          feePct: { status: 'PASS', detail: 'Standard contingency' },
+          feeBase: { status: 'PASS', detail: 'Ethical disbursement standard' },
+          portalPassword: { status: 'PASS', detail: 'Never requests portal credentials; orders via electronic HIPAA exchange' },
+          signatureStamping: { status: 'UNKNOWN', detail: 'Confirm individual HIPAA execution' },
+          evaluationWindow: { status: 'PASS', detail: 'Immediate docketing and tolling protection' },
+          meningiomaScreening: { status: 'PASS', detail: 'Confirmed MRI / imaging required' }
+        },
+        notes: 'Top tier mass tort trial firm with extensive pharmaceutical multidistrict litigation experience.',
+        dealbreakerCount: 0,
+        passCount: 6
+      },
+      {
+        id: 'firm-lpm',
+        name: 'Laminack, Pirtle & Martines (LPM)',
+        coCounsel: 'Mass Tort Trial Specialists',
+        phone: '(713) 292-2750',
+        email: 'intake@lpmfirm.com',
+        website: 'www.lpmfirm.com',
+        address: 'Houston, TX',
+        status: 'Outreach / Call Needed',
+        fee: 'To Be Confirmed',
+        contractReceivedDate: '',
+        metrics: {
+          interest: { status: 'UNKNOWN', detail: 'Ask Question #1' },
+          adminFee: { status: 'UNKNOWN', detail: 'Ask Question #2' },
+          feePct: { status: 'UNKNOWN', detail: 'Ask Question #3' },
+          feeBase: { status: 'UNKNOWN', detail: 'Ask Question #4' },
+          portalPassword: { status: 'UNKNOWN', detail: 'Ask Question #5' },
+          signatureStamping: { status: 'UNKNOWN', detail: 'Ask Question #6' },
+          evaluationWindow: { status: 'UNKNOWN', detail: 'Ask Question #7' },
+          meningiomaScreening: { status: 'UNKNOWN', detail: 'Ask Question #8' }
+        },
+        notes: 'Well regarded Texas pharmaceutical injury trial practice. Needs call with 8-question intake list.',
+        dealbreakerCount: 0,
+        passCount: 0
+      },
+      {
+        id: 'firm-awko',
+        name: 'Aylstock, Witkin, Kreis & Overholtz (AWKO)',
+        coCounsel: 'National MDL Leadership Counsel',
+        phone: '(850) 202-1010 / (844) 794-7402',
+        email: 'intake@awkolaw.com',
+        website: 'www.awkolaw.com',
+        address: 'Pensacola, FL / National Mass Tort',
+        status: 'Under Review',
+        fee: '40% Standard MDL Contingency',
+        contractReceivedDate: '',
+        metrics: {
+          interest: { status: 'PASS', detail: '0% expense interest charged to client' },
+          adminFee: { status: 'PASS', detail: 'No hidden $200 case setup charges' },
+          feePct: { status: 'PASS', detail: '40% contingency standard' },
+          feeBase: { status: 'UNKNOWN', detail: 'Confirm gross vs net calculation' },
+          portalPassword: { status: 'PASS', detail: 'Standard formal medical records request without password collection' },
+          signatureStamping: { status: 'UNKNOWN', detail: 'Check POA terms' },
+          evaluationWindow: { status: 'PASS', detail: 'Protective filing team' },
+          meningiomaScreening: { status: 'PASS', detail: 'Strict criteria: minimum 1-2 years Depo usage with documented meningioma' }
+        },
+        notes: 'Co-lead trial counsel in multiple major national federal pharmaceutical multi-district litigations.',
+        dealbreakerCount: 0,
+        passCount: 5
+      },
+      {
+        id: 'firm-levin',
+        name: 'Levin Papantonio Rafferty',
+        coCounsel: 'Pioneers in Depo-Provera Litigation',
+        phone: '(850) 435-7000 / (800) 277-1193',
+        email: 'mass-torts@levinlaw.com',
+        website: 'www.levinlaw.com',
+        address: 'Pensacola, FL',
+        status: 'Outreach / Call Needed',
+        fee: 'Contingency Fee',
+        contractReceivedDate: '',
+        metrics: {
+          interest: { status: 'UNKNOWN', detail: 'Ask Question #1' },
+          adminFee: { status: 'UNKNOWN', detail: 'Ask Question #2' },
+          feePct: { status: 'UNKNOWN', detail: 'Ask Question #3' },
+          feeBase: { status: 'UNKNOWN', detail: 'Ask Question #4' },
+          portalPassword: { status: 'UNKNOWN', detail: 'Ask Question #5' },
+          signatureStamping: { status: 'UNKNOWN', detail: 'Ask Question #6' },
+          evaluationWindow: { status: 'UNKNOWN', detail: 'Ask Question #7' },
+          meningiomaScreening: { status: 'UNKNOWN', detail: 'Ask Question #8' }
+        },
+        notes: 'One of America’s most prominent pharmaceutical mass tort firms. Contact for intake questionnaire.',
+        dealbreakerCount: 0,
+        passCount: 0
+      }
+    ];
+
+    // Initial Checks Received Data with expiration tracking
+    let checksReceived = [
+      {
+        id: 'chk-01',
+        payer: 'Depo Medical Record Advance Reimbursement',
+        checkNumber: '89104',
+        amount: 350.00,
+        issueDate: '2026-08-15',
+        expireDate: '2026-11-15', // 90 days expiration
+        status: 'Pending Deposit',
+        memo: 'Reimbursement for prior imaging CD copy and neurology office record retrieval fee',
+        photoUrl: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=400&q=80',
+        notes: 'Needs to be deposited at local Waycross branch before Nov 15, 2026!'
+      }
+    ];
+
+    // 8 Core Intake Questions
+    const intakeQuestions = [
+      {
+        num: 1,
+        title: "Expense Interest Rate",
+        question: "Do you charge any interest or financing fees on the expenses your firm advances?",
+        ideal: "0% Interest. The firm absorbs litigation financing; client repays only actual dollar expenses upon win.",
+        dealbreaker: "Any monthly or annual interest charged on costs (e.g., 1.5% per month / 18% per year as in Pulaski's contract).",
+        whyItMatters: "On a prolonged mass tort case taking 2-4 years, 1.5% monthly compound interest can consume tens of thousands of dollars of your settlement money."
+      },
+      {
+        num: 2,
+        title: "Administrative & Third-Party Vendor Fees",
+        question: "Are there any 'case setup fees', file opening charges, or third-party administration fees passed to me?",
+        ideal: "$0 administrative fees. The firm's contingency fee covers overhead and administration.",
+        dealbreaker: "Charging a $200+ case file opening fee, or billing you separately for Torticity/Archer third-party administrators.",
+        whyItMatters: "Overhead and routine administrative work should be part of the attorney's fee, not deducted from your recovery share."
+      },
+      {
+        num: 3,
+        title: "Contingency Fee Percentage",
+        question: "What is your firm's contingency fee percentage, and does it increase if the case goes to trial or an MDL bellwether?",
+        ideal: "Standard 33.3% to 40% maximum, with clear caps under federal claims.",
+        dealbreaker: "Fee exceeding 40%, or tacking on hourly charges and hidden escalators.",
+        whyItMatters: "Ethical rules cap standard contingency fees. Knowing if it stays fixed or escalates prevents surprises."
+      },
+      {
+        num: 4,
+        title: "Fee Base Calculation (Gross vs. Net)",
+        question: "Is your contingency fee calculated on the Gross Recovery (before deducting costs) or the Net Recovery (after costs)?",
+        ideal: "Net recovery calculation leaves more funds with the injured client.",
+        dealbreaker: "Taking 40% strictly off gross while also taking high interest and expenses out of client share.",
+        whyItMatters: "When fees are calculated off gross and high interest is deducted from client funds, the client's percentage of the real recovery shrinks drastically."
+      },
+      {
+        num: 5,
+        title: "Medical Portal Passwords & HIPAA Security",
+        question: "How do you request my medical records? Do you ever ask for my personal patient portal username or password?",
+        ideal: "Never asks for personal passwords. Uses standard HIPAA electronic medical records requests directly to healthcare facilities.",
+        dealbreaker: "Demands client's personal username, password, or security credentials to medical portals (like Pulaski's Page 6).",
+        whyItMatters: "Handing over patient portal credentials violates portal terms of service and gives uncontrolled access to your entire personal health history beyond the relevant injury."
+      },
+      {
+        num: 6,
+        title: "Signature Stamping & Power of Attorney",
+        question: "Will you ask me to sign specific individual record releases, or will you use a Power of Attorney to stamp my signature onto documents?",
+        ideal: "Client reviews and signs specific releases for specific providers as necessary.",
+        dealbreaker: "Demands a broad Limited Power of Attorney authorizing the firm to digitally transfer or stamp client signature onto other forms at will.",
+        whyItMatters: "Signature stamping takes away your oversight regarding which private records are being ordered in your name."
+      },
+      {
+        num: 7,
+        title: "Statute of Limitations & Evaluation Window",
+        question: "How long is your initial evaluation period, and will your firm protect my filing deadlines / toll the statute of limitations during that time?",
+        ideal: "Active filing protection or entered tolling agreements immediately upon retention.",
+        dealbreaker: "Contract states firm takes 90+ days to evaluate and disclaims responsibility if your legal filing deadline expires during investigation.",
+        whyItMatters: "If your statute of limitations runs out while an attorney sits on your file for 90 days, you lose your right to sue forever."
+      },
+      {
+        num: 8,
+        title: "Meningioma Screening Criteria",
+        question: "What specific medical proof and Depo-Provera exposure history do you require to file my claim?",
+        ideal: "Requires verified MRI/CT imaging, neurology records, and documented Depo-Provera injections (e.g., minimum 1-2 years exposure).",
+        dealbreaker: "Vague intake that signs anyone without verifying intracranial meningioma tumor criteria, creating false hope or abandoned files later.",
+        whyItMatters: "Reputable mass tort firms carefully curate strong cases backed by verified intracranial meningioma diagnosis."
+      }
+    ];
+
+    // Client Dossier Files
+    let dossierFiles = [
+      {
+        id: 'file-1',
+        title: 'Depo-Provera Contract - Pulaski Kherkher',
+        type: 'Contract PDF',
+        date: '2026-09-07',
+        size: '6 Pages',
+        icon: 'pdf',
+        tags: ['Pulaski', 'Contract', '6 Red Flags'],
+        notes: 'Received contract retaining Pulaski Kherkher, Robin Law, and Robin Raynish. Flagged for 1.5% expense interest and portal login requisitions.'
+      },
+      {
+        id: 'file-2',
+        title: 'Brain MRI Report - Intracranial Meningioma Confirmation',
+        type: 'Medical Record',
+        date: '2026-08-02',
+        size: '1.4 MB',
+        icon: 'image',
+        tags: ['MRI', 'Imaging', 'Diagnosis'],
+        notes: 'Confirms meningioma tumor diagnosis following prolonged Depo-Provera usage. Essential medical proof for all intake screenings.'
+      }
+    ];
+
+    function initApp() {
+      renderFirmsList();
+      renderMatrix();
+      renderChecksList();
+      renderIntakeQuestions();
+      renderDossierFiles();
+      updateCheckUrgentAlert();
+      setupTabs();
+      setupSearchAndFilter();
+      runCalculator();
+    }
+
+    function setupTabs() {
+      const tabLinks = document.querySelectorAll('.tab-link');
+      tabLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          const tabId = link.getAttribute('data-tab');
+          switchTab(tabId);
+        });
+      });
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-link').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('active', 'border-sky-600', 'text-sky-700');
+          btn.classList.remove('border-transparent', 'text-slate-600');
+        } else {
+          btn.classList.remove('active', 'border-sky-600', 'text-sky-700');
+          btn.classList.add('border-transparent', 'text-slate-600');
+        }
+      });
+
+      document.querySelectorAll('.tab-content').forEach(content => {
+        if (content.id === `tab-${tabId}`) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setupSearchAndFilter() {
+      const searchInput = document.getElementById('firmSearchInput');
+      const filterSelect = document.getElementById('firmFilterStatus');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => renderFirmsList());
+      }
+      if (filterSelect) {
+        filterSelect.addEventListener('change', () => renderFirmsList());
+      }
+
+      document.getElementById('quickAddCheckBtn').addEventListener('click', openAddCheckModal);
+      document.getElementById('addFirmBtn').addEventListener('click', openAddFirmModal);
+    }
+
+    function renderFirmsList() {
+      const container = document.getElementById('firmsGrid');
+      const query = document.getElementById('firmSearchInput')?.value.toLowerCase() || '';
+      const filter = document.getElementById('firmFilterStatus')?.value || 'ALL';
+
+      const filtered = lawFirms.filter(firm => {
+        const matchesQuery = firm.name.toLowerCase().includes(query) || 
+                             firm.notes.toLowerCase().includes(query) ||
+                             (firm.fee && firm.fee.toLowerCase().includes(query));
+        const matchesFilter = (filter === 'ALL') || (firm.status === filter);
+        return matchesQuery && matchesFilter;
+      });
+
+      document.getElementById('firmCountPill').textContent = lawFirms.length;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full bg-white p-8 rounded-2xl border border-dashed border-slate-300 text-center">
+            <svg class="w-10 h-10 text-slate-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            <p class="text-sm font-semibold text-slate-700">No law firms match your search</p>
+            <p class="text-xs text-slate-400 mt-1">Try resetting the filter or search query.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(firm => {
+        let statusBadge = 'bg-slate-100 text-slate-700 border-slate-200';
+        if (firm.status === 'Contract Received') statusBadge = 'bg-amber-100 text-amber-800 border-amber-200';
+        if (firm.status === 'Preferred / Finalist') statusBadge = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+        if (firm.status === 'Disqualified') statusBadge = 'bg-rose-100 text-rose-800 border-rose-200';
+        if (firm.status === 'Under Review') statusBadge = 'bg-sky-100 text-sky-800 border-sky-200';
+
+        const hasDealbreakers = firm.dealbreakerCount > 0;
+        const dealbreakerBadge = hasDealbreakers 
+          ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-red-100 text-red-800 border border-red-200">
+               <svg class="w-3 h-3 mr-1 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+               ${firm.dealbreakerCount} Dealbreaker(s) Detected
+             </span>`
+          : (firm.passCount > 0 
+              ? `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                   <svg class="w-3 h-3 mr-1 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                   ${firm.passCount} Metrics Passed
+                 </span>`
+              : `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">Pending Evaluation</span>`);
+
+        return `
+          <div class="bg-white rounded-2xl border ${hasDealbreakers ? 'border-red-200 shadow-xs' : 'border-slate-200 shadow-xs'} p-5 flex flex-col justify-between hover:shadow-md transition">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <h3 class="font-bold text-slate-900 text-base">${firm.name}</h3>
+                  </div>
+                  ${firm.coCounsel ? `<p class="text-[11px] text-slate-500 font-medium">Co-Counsel: ${firm.coCounsel}</p>` : ''}
+                </div>
+                <span class="px-2.5 py-1 text-[11px] font-bold rounded-lg border ${statusBadge} shrink-0">${firm.status}</span>
+              </div>
+
+              <div class="mt-2.5 flex items-center space-x-2">
+                ${dealbreakerBadge}
+                ${firm.contractReceivedDate ? `<span class="text-[11px] text-slate-400">Offer Date: ${firm.contractReceivedDate}</span>` : ''}
+              </div>
+
+              <div class="mt-4 grid grid-cols-2 gap-2 text-xs bg-slate-50 p-3 rounded-xl border border-slate-100">
+                <div>
+                  <span class="text-slate-400 text-[10px] uppercase font-bold block">Phone</span>
+                  <span class="text-slate-800 font-semibold truncate block">${firm.phone || 'N/A'}</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 text-[10px] uppercase font-bold block">Fee Terms</span>
+                  <span class="text-slate-800 font-semibold truncate block">${firm.fee || 'Not specified'}</span>
+                </div>
+                <div class="col-span-2">
+                  <span class="text-slate-400 text-[10px] uppercase font-bold block">Email / Web</span>
+                  <span class="text-slate-700 truncate block">${firm.email} ${firm.website ? '&bull; ' + firm.website : ''}</span>
+                </div>
+              </div>
+
+              <div class="mt-4 space-y-2">
+                <span class="text-[11px] font-bold text-slate-700 uppercase tracking-wider block">Contract Term Highlights:</span>
+                <div class="space-y-1.5 text-xs">
+                  <div class="flex items-start space-x-2">
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${firm.metrics.interest.status === 'FAIL' ? 'bg-red-100 text-red-800' : (firm.metrics.interest.status === 'PASS' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-600')}">
+                      ${firm.metrics.interest.status === 'FAIL' ? 'Dealbreaker' : (firm.metrics.interest.status === 'PASS' ? 'Ideal' : 'Unknown')}
+                    </span>
+                    <span class="text-slate-700"><strong class="font-medium text-slate-900">Expense Interest:</strong> ${firm.metrics.interest.detail}</span>
+                  </div>
+                  <div class="flex items-start space-x-2">
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${firm.metrics.adminFee.status === 'FAIL' ? 'bg-red-100 text-red-800' : (firm.metrics.adminFee.status === 'PASS' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-600')}">
+                      ${firm.metrics.adminFee.status === 'FAIL' ? 'Dealbreaker' : (firm.metrics.adminFee.status === 'PASS' ? 'Ideal' : 'Unknown')}
+                    </span>
+                    <span class="text-slate-700"><strong class="font-medium text-slate-900">Admin Setup Fee:</strong> ${firm.metrics.adminFee.detail}</span>
+                  </div>
+                  <div class="flex items-start space-x-2">
+                    <span class="px-1.5 py-0.5 rounded text-[10px] font-bold uppercase ${firm.metrics.portalPassword.status === 'FAIL' ? 'bg-red-100 text-red-800' : (firm.metrics.portalPassword.status === 'PASS' ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-600')}">
+                      ${firm.metrics.portalPassword.status === 'FAIL' ? 'Dealbreaker' : (firm.metrics.portalPassword.status === 'PASS' ? 'Ideal' : 'Unknown')}
+                    </span>
+                    <span class="text-slate-700"><strong class="font-medium text-slate-900">Medical Portal Passwords:</strong> ${firm.metrics.portalPassword.detail}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 p-3 bg-amber-50/60 rounded-xl border border-amber-100 text-xs text-amber-900">
+                <span class="font-bold text-[10px] uppercase text-amber-800 tracking-wider block mb-1">Notes &amp; Communications</span>
+                <p class="leading-relaxed text-slate-700">${firm.notes}</p>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+              <button onclick="editFirm('${firm.id}')" class="text-xs font-semibold text-sky-600 hover:text-sky-800 flex items-center">
+                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                Edit &amp; Log Responses
+              </button>
+              <div class="flex items-center space-x-2">
+                <button onclick="deleteFirm('${firm.id}')" class="text-xs font-medium text-slate-400 hover:text-rose-600 transition">Delete</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderMatrix() {
+      const tbody = document.getElementById('matrixTableBody');
+      const metricsList = [
+        { key: 'interest', name: '1. Expense Interest', ideal: '0% Interest', dealbreaker: 'Charges 1.5%/mo or any interest' },
+        { key: 'adminFee', name: '2. Admin / Setup Fees', ideal: '$0 / Absorbed', dealbreaker: '$200 setup fee + vendor pass-through' },
+        { key: 'feePct', name: '3. Contingency Fee %', ideal: '33.3% - 40%', dealbreaker: 'Exceeding 40% or hourly' },
+        { key: 'feeBase', name: '4. Fee Base (Gross vs Net)', ideal: 'Net Recovery', dealbreaker: 'Gross recovery (before high costs)' },
+        { key: 'portalPassword', name: '5. Patient Portal Password', ideal: 'Never requested', dealbreaker: 'Demands personal credentials' },
+        { key: 'signatureStamping', name: '6. Signature Stamping POA', ideal: 'No / Signs individually', dealbreaker: 'POA to stamp/transfer signature' },
+        { key: 'evaluationWindow', name: '7. Evaluation & Statute of Limitations', ideal: 'Protects deadlines / tolling', dealbreaker: 'Disclaims SoL during 90-day eval' },
+        { key: 'meningiomaScreening', name: '8. Meningioma Screening', ideal: 'Requires MRI / CT confirmed', dealbreaker: 'Vague intake without tumor criteria' }
+      ];
+
+      tbody.innerHTML = metricsList.map(metric => {
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-3.5 sticky left-0 bg-white z-10 border-r border-slate-200 font-semibold text-slate-800">
+              <div>${metric.name}</div>
+              <div class="text-[10px] text-emerald-700 font-normal mt-0.5">Ideal: ${metric.ideal}</div>
+              <div class="text-[10px] text-red-600 font-normal">Dealbreaker: ${metric.dealbreaker}</div>
+            </td>
+            ${lawFirms.slice(0, 6).map(firm => {
+              const m = firm.metrics[metric.key] || { status: 'UNKNOWN', detail: 'N/A' };
+              let badge = '<span class="px-2 py-1 rounded text-[11px] font-medium bg-slate-100 text-slate-500">Pending</span>';
+              if (m.status === 'PASS') {
+                badge = '<span class="px-2 py-1 rounded text-[11px] font-bold bg-green-100 text-green-800 border border-green-200">Pass</span>';
+              } else if (m.status === 'FAIL') {
+                badge = '<span class="px-2 py-1 rounded text-[11px] font-bold bg-red-100 text-red-800 border border-red-200">Dealbreaker</span>';
+              }
+              return `
+                <td class="p-3 text-center align-top border-l border-slate-100">
+                  <div class="mb-1">${badge}</div>
+                  <div class="text-[10px] text-slate-500 leading-tight max-w-[140px] mx-auto">${m.detail}</div>
+                </td>
+              `;
+            }).join('')}
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderChecksList() {
+      const tbody = document.getElementById('checksTableBody');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      let total = 0;
+      let pendingTotal = 0;
+      let cashedTotal = 0;
+      let pendingCount = 0;
+      let cashedCount = 0;
+      let expiringSoonCount = 0;
+
+      if (checksReceived.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="p-8 text-center text-slate-400 text-xs">
+              No checks logged yet. Click "Add New Check" to record incoming checks with expiration reminders.
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = checksReceived.map(chk => {
+          const amt = parseFloat(chk.amount) || 0;
+          total += amt;
+
+          const expDate = new Date(chk.expireDate);
+          expDate.setHours(0, 0, 0, 0);
+          const diffDays = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
+
+          let statusBadge = '';
+          if (chk.status === 'Successfully Cashed') {
+            cashedTotal += amt;
+            cashedCount++;
+            statusBadge = `<span class="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-200">Cashed</span>`;
+          } else if (chk.status === 'Voided / Re-issued') {
+            statusBadge = `<span class="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-slate-100 text-slate-700 border border-slate-200">Voided</span>`;
+          } else {
+            pendingTotal += amt;
+            pendingCount++;
+
+            if (diffDays < 0) {
+              expiringSoonCount++;
+              statusBadge = `<span class="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-rose-100 text-rose-800 border border-rose-200 animate-pulse">EXPIRED (${Math.abs(diffDays)}d ago)</span>`;
+            } else if (diffDays <= 14) {
+              expiringSoonCount++;
+              statusBadge = `<span class="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-amber-100 text-amber-900 border border-amber-300 font-bold">Expires in ${diffDays} days!</span>`;
+            } else {
+              statusBadge = `<span class="px-2.5 py-1 text-[11px] font-medium rounded-lg bg-sky-50 text-sky-800 border border-sky-200">${diffDays} days remaining</span>`;
+            }
+          }
+
+          const hasPhoto = !!chk.photoUrl;
+
+          return `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-3">
+                <div class="font-bold text-slate-900">${chk.payer}</div>
+                <div class="text-[11px] text-slate-500 font-mono">Check #${chk.checkNumber || 'N/A'} ${chk.memo ? '&bull; ' + chk.memo : ''}</div>
+              </td>
+              <td class="p-3 font-mono font-bold text-slate-900 text-sm">$${amt.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+              <td class="p-3 text-slate-600">${chk.issueDate || '—'}</td>
+              <td class="p-3">
+                <div class="font-bold text-slate-800">${chk.expireDate || '—'}</div>
+                <div class="text-[10px] text-slate-400">Must deposit before void</div>
+              </td>
+              <td class="p-3">${statusBadge}</td>
+              <td class="p-3">
+                ${hasPhoto ? `
+                  <button onclick="previewPhoto('${chk.photoUrl}', 'Check #${chk.checkNumber} - ${chk.payer}')" class="inline-flex items-center text-sky-600 hover:text-sky-800 font-semibold text-[11px]">
+                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    View Scan
+                  </button>
+                ` : `<span class="text-slate-400 text-[11px]">No scan</span>`}
+              </td>
+              <td class="p-3 text-right space-x-2">
+                ${chk.status === 'Pending Deposit' ? `
+                  <button onclick="markCheckCashed('${chk.id}')" class="text-emerald-600 hover:text-emerald-800 font-semibold text-xs">Mark Cashed</button>
+                ` : ''}
+                <button onclick="editCheck('${chk.id}')" class="text-slate-600 hover:text-slate-800 text-xs font-medium">Edit</button>
+                <button onclick="deleteCheck('${chk.id}')" class="text-rose-500 hover:text-rose-700 text-xs font-medium">Delete</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      document.getElementById('totalChecksAmount').textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+      document.getElementById('totalChecksCount').textContent = `${checksReceived.length} check(s) recorded`;
+      document.getElementById('pendingChecksAmount').textContent = `$${pendingTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+      document.getElementById('pendingChecksCount').textContent = `${pendingCount} check(s) pending`;
+      document.getElementById('cashedChecksAmount').textContent = `$${cashedTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+      document.getElementById('cashedChecksCount').textContent = `${cashedCount} cashed`;
+      document.getElementById('expiringChecksCount').textContent = expiringSoonCount;
+
+      const activeBadge = document.getElementById('activeCheckBadge');
+      if (pendingCount > 0) {
+        activeBadge.textContent = pendingCount;
+        activeBadge.classList.remove('hidden');
+      } else {
+        activeBadge.classList.add('hidden');
+      }
+
+      const noticeBadge = document.getElementById('checkNoticeBadge');
+      if (expiringSoonCount > 0) {
+        noticeBadge.textContent = expiringSoonCount;
+        noticeBadge.classList.remove('hidden');
+      } else {
+        noticeBadge.classList.add('hidden');
+      }
+    }
+
+    function updateCheckUrgentAlert() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const urgentChecks = checksReceived.filter(c => {
+        if (c.status !== 'Pending Deposit') return false;
+        const expDate = new Date(c.expireDate);
+        expDate.setHours(0, 0, 0, 0);
+        const diffDays = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
+        return diffDays <= 14;
+      });
+
+      const alertBox = document.getElementById('urgentAlertBox');
+      if (urgentChecks.length > 0) {
+        alertBox.classList.remove('hidden');
+        document.getElementById('urgentAlertTitle').textContent = `Check Expiration Alert: ${urgentChecks.length} Check(s) Expiring Soon`;
+        document.getElementById('urgentAlertMessage').innerHTML = `
+          You have pending checks for <strong>$${urgentChecks.reduce((sum, c) => sum + (parseFloat(c.amount) || 0), 0).toFixed(2)}</strong> 
+          from <strong>${urgentChecks.map(c => c.payer).join(', ')}</strong> that will become void/stale-dated within the next 14 days or may already be expired. 
+          Please cash or deposit them into Malena's account immediately!
+        `;
+      } else {
+        alertBox.classList.add('hidden');
+      }
+    }
+
+    function renderIntakeQuestions() {
+      const container = document.getElementById('intakeQuestionsContainer');
+      container.innerHTML = intakeQuestions.map(q => {
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center space-x-2 text-sky-600 font-bold text-xs">
+                <span class="w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center">${q.num}</span>
+                <span>Question #${q.num}</span>
+              </div>
+              <h3 class="font-bold text-slate-900 text-sm mt-2">${q.title}</h3>
+              <div class="mt-2 p-3 bg-slate-50 rounded-xl border border-slate-200 text-slate-800 text-xs italic font-medium">
+                "${q.question}"
+              </div>
+
+              <div class="mt-4 space-y-2 text-xs">
+                <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-lg text-emerald-900">
+                  <span class="font-bold text-emerald-800 uppercase tracking-wider text-[10px] block mb-0.5">Ideal / Pass Response</span>
+                  <p>${q.ideal}</p>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 p-2.5 rounded-lg text-rose-900">
+                  <span class="font-bold text-rose-800 uppercase tracking-wider text-[10px] block mb-0.5">Dealbreaker / Red Flag</span>
+                  <p>${q.dealbreaker}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+              <strong class="text-slate-700">Why this matters:</strong> ${q.whyItMatters}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderDossierFiles() {
+      const container = document.getElementById('dossierFilesList');
+      document.getElementById('fileCountBadge').textContent = `${dossierFiles.length} file(s)`;
+
+      container.innerHTML = dossierFiles.map(file => {
+        return `
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between hover:bg-slate-100/70 transition">
+            <div>
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-8 h-8 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-slate-800 text-xs leading-tight">${file.title}</h4>
+                    <span class="text-[10px] text-slate-400">${file.date} &bull; ${file.size}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-2">${file.notes}</p>
+              <div class="mt-2 flex flex-wrap gap-1">
+                ${file.tags.map(t => `<span class="text-[9px] bg-white border border-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-medium">${t}</span>`).join('')}
+              </div>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-200 flex items-center justify-between">
+              <span class="text-[10px] text-slate-400">${file.type}</span>
+              <button onclick="deleteDossierFile('${file.id}')" class="text-[11px] text-rose-500 hover:text-rose-700">Remove</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleDossierFileUpload(event) {
+      const files = event.target.files;
+      if (!files || files.length === 0) return;
+
+      Array.from(files).forEach((file, idx) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          dossierFiles.unshift({
+            id: 'file-' + Date.now() + '-' + idx,
+            title: file.name,
+            type: file.type.includes('image') ? 'Photo' : 'Document',
+            date: new Date().toISOString().split('T')[0],
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            icon: file.type.includes('image') ? 'image' : 'pdf',
+            tags: ['Uploaded', 'Case Vault'],
+            notes: 'Uploaded by Malena on ' + new Date().toLocaleDateString(),
+            dataUrl: e.target.result
+          });
+          renderDossierFiles();
+        };
+        reader.readAsDataURL(file);
+      });
+      event.target.value = '';
+    }
+
+    function deleteDossierFile(fileId) {
+      dossierFiles = dossierFiles.filter(f => f.id !== fileId);
+      renderDossierFiles();
+    }
+
+    function saveCaseNotes() {
+      const notesVal = document.getElementById('generalCaseNotes').value;
+      alertBox('Case notes saved to session vault successfully!');
+    }
+
+    function openAddFirmModal() {
+      document.getElementById('firmForm').reset();
+      document.getElementById('editFirmId').value = '';
+      document.getElementById('firmModalTitle').textContent = 'Add Law Firm for Outreach';
+      document.getElementById('firmModal').classList.remove('hidden');
+    }
+
+    function closeFirmModal() {
+      document.getElementById('firmModal').classList.add('hidden');
+    }
+
+    function editFirm(firmId) {
+      const firm = lawFirms.find(f => f.id === firmId);
+      if (!firm) return;
+
+      document.getElementById('editFirmId').value = firm.id;
+      document.getElementById('firmModalTitle').textContent = `Edit Firm: ${firm.name}`;
+      document.getElementById('firmNameInput').value = firm.name;
+      document.getElementById('firmContactInput').value = firm.coCounsel || '';
+      document.getElementById('firmPhoneInput').value = firm.phone || '';
+      document.getElementById('firmEmailInput').value = firm.email || '';
+      document.getElementById('firmStatusSelect').value = firm.status;
+      document.getElementById('firmFeeInput').value = firm.fee || '';
+      document.getElementById('firmNotesInput').value = (firm.notesList && firm.notesList[0]) ? firm.notesList[0].text : '';
+
+      document.getElementById('chkInterest').value = firm.metrics.interest?.status || 'UNKNOWN';
+      document.getElementById('chkAdmin').value = firm.metrics.adminFee?.status || 'UNKNOWN';
+      document.getElementById('chkFeeBase').value = firm.metrics.feeBase?.status || 'UNKNOWN';
+      document.getElementById('chkPortal').value = firm.metrics.portalPassword?.status || 'UNKNOWN';
+      document.getElementById('chkSignature').value = firm.metrics.signatureStamping?.status || 'UNKNOWN';
+      document.getElementById('chkEvaluation').value = firm.metrics.evaluationWindow?.status || 'UNKNOWN';
+
+      document.getElementById('firmModal').classList.remove('hidden');
+    }
+
+    function handleFirmFormSubmit(e) {
+      e.preventDefault();
+      const firmId = document.getElementById('editFirmId').value;
+      const name = document.getElementById('firmNameInput').value;
+      const coCounsel = document.getElementById('firmContactInput').value;
+      const phone = document.getElementById('firmPhoneInput').value;
+      const email = document.getElementById('firmEmailInput').value;
+      const status = document.getElementById('firmStatusSelect').value;
+      const fee = document.getElementById('firmFeeInput').value;
+      const newNoteText = document.getElementById('firmNotesInput').value.trim();
+
+      const interestStat = document.getElementById('chkInterest').value;
+      const adminStat = document.getElementById('chkAdmin').value;
+      const feeBaseStat = document.getElementById('chkFeeBase').value;
+      const portalStat = document.getElementById('chkPortal').value;
+      const sigStat = document.getElementById('chkSignature').value;
+      const evalStat = document.getElementById('chkEvaluation').value;
+
+      const metrics = {
+        interest: { 
+          status: interestStat, 
+          detail: interestStat === 'FAIL' ? 'Charges monthly/annual expense interest (Dealbreaker)' : (interestStat === 'PASS' ? '0% Expense Interest' : 'Not verified') 
+        },
+        adminFee: { 
+          status: adminStat, 
+          detail: adminStat === 'FAIL' ? 'Charges setup / admin vendor fees (Dealbreaker)' : (adminStat === 'PASS' ? '$0 admin fee' : 'Not verified') 
+        },
+        feePct: { status: 'PASS', detail: fee || 'Standard contingency' },
+        feeBase: { 
+          status: feeBaseStat, 
+          detail: feeBaseStat === 'FAIL' ? 'Calculated on gross recovery before costs' : (feeBaseStat === 'PASS' ? 'Net recovery after costs' : 'Not verified') 
+        },
+        portalPassword: { 
+          status: portalStat, 
+          detail: portalStat === 'FAIL' ? 'Demands patient portal username & password' : (portalStat === 'PASS' ? 'Never requests portal password' : 'Not verified') 
+        },
+        signatureStamping: { 
+          status: sigStat, 
+          detail: sigStat === 'FAIL' ? 'Requires POA to stamp signature onto other forms' : (sigStat === 'PASS' ? 'No stamping POA' : 'Not verified') 
+        },
+        evaluationWindow: { 
+          status: evalStat, 
+          detail: evalStat === 'FAIL' ? 'Disclaims liability during 90-day review' : (evalStat === 'PASS' ? 'Protects filing deadlines' : 'Not verified') 
+        },
+        meningiomaScreening: { status: 'PASS', detail: 'Requires confirmed imaging criteria' }
+      };
+
+      let dealbreakerCount = 0;
+      let passCount = 0;
+      Object.values(metrics).forEach(m => {
+        if (m.status === 'FAIL') dealbreakerCount++;
+        if (m.status === 'PASS') passCount++;
+      });
+
+      const nowStr = new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }) + ' ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
+      if (firmId) {
+        const idx = lawFirms.findIndex(f => f.id === firmId);
+        if (idx !== -1) {
+          const existingNotes = lawFirms[idx].notesList || [];
+          if (newNoteText && (!existingNotes[0] || existingNotes[0].text !== newNoteText)) {
+            existingNotes.unshift({ id: 'fn-' + Date.now(), text: newNoteText, date: nowStr });
+          }
+          lawFirms[idx] = {
+            ...lawFirms[idx],
+            name, coCounsel, phone, email, status, fee,
+            notesList: existingNotes,
+            metrics, dealbreakerCount, passCount
+          };
+        }
+      } else {
+        const newNotes = newNoteText ? [{ id: 'fn-' + Date.now(), text: newNoteText, date: nowStr }] : [];
+        const newFirm = {
+          id: 'firm-' + Date.now(),
+          name,
+          coCounsel,
+          phone,
+          email,
+          website: '',
+          address: '',
+          status,
+          fee,
+          contractReceivedDate: '',
+          metrics,
+          notesList: newNotes,
+          files: [],
+          dealbreakerCount,
+          passCount
+        };
+        lawFirms.unshift(newFirm);
+      }
+
+      closeFirmModal();
+      renderFirmsList();
+      renderMatrix();
+    }
+
+    function deleteFirm(firmId) {
+      if (lawFirms.length <= 1) {
+        alertBox('You must retain at least one firm on your list.');
+        return;
+      }
+      lawFirms = lawFirms.filter(f => f.id !== firmId);
+      renderFirmsList();
+      renderMatrix();
+    }
+
+    function openAddCheckModal() {
+      document.getElementById('checkForm').reset();
+      document.getElementById('editCheckId').value = '';
+      document.getElementById('checkPhotoPreviewContainer').classList.add('hidden');
+      document.getElementById('checkModalTitle').textContent = 'Log Check Received';
+
+      const now = new Date();
+      const issueStr = now.toISOString().split('T')[0];
+      const expDate = new Date();
+      expDate.setDate(expDate.getDate() + 90);
+      const expStr = expDate.toISOString().split('T')[0];
+
+      document.getElementById('checkIssueDate').value = issueStr;
+      document.getElementById('checkExpireDate').value = expStr;
+
+      document.getElementById('checkModal').classList.remove('hidden');
+    }
+
+    function closeCheckModal() {
+      document.getElementById('checkModal').classList.add('hidden');
+    }
+
+    function editCheck(checkId) {
+      const chk = checksReceived.find(c => c.id === checkId);
+      if (!chk) return;
+
+      document.getElementById('editCheckId').value = chk.id;
+      document.getElementById('checkModalTitle').textContent = 'Edit Check Details';
+      document.getElementById('checkPayer').value = chk.payer;
+      document.getElementById('checkNumber').value = chk.checkNumber || '';
+      document.getElementById('checkAmount').value = chk.amount;
+      document.getElementById('checkIssueDate').value = chk.issueDate;
+      document.getElementById('checkExpireDate').value = chk.expireDate;
+      document.getElementById('checkStatus').value = chk.status;
+      document.getElementById('checkMemo').value = chk.memo || '';
+
+      const previewCont = document.getElementById('checkPhotoPreviewContainer');
+      const previewImg = document.getElementById('checkPhotoPreviewImg');
+      if (chk.photoUrl) {
+        previewImg.src = chk.photoUrl;
+        previewCont.classList.remove('hidden');
+      } else {
+        previewCont.classList.add('hidden');
+      }
+
+      document.getElementById('checkModal').classList.remove('hidden');
+    }
+
+    function handleCheckFormSubmit(e) {
+      e.preventDefault();
+      const checkId = document.getElementById('editCheckId').value;
+      const payer = document.getElementById('checkPayer').value;
+      const checkNumber = document.getElementById('checkNumber').value;
+      const amount = parseFloat(document.getElementById('checkAmount').value) || 0;
+      const issueDate = document.getElementById('checkIssueDate').value;
+      const expireDate = document.getElementById('checkExpireDate').value;
+      const status = document.getElementById('checkStatus').value;
+      const memo = document.getElementById('checkMemo').value;
+
+      const photoInput = document.getElementById('checkPhotoInput');
+      
+      const proceedSave = (photoUrl) => {
+        if (checkId) {
+          const idx = checksReceived.findIndex(c => c.id === checkId);
+          if (idx !== -1) {
+            checksReceived[idx] = {
+              ...checksReceived[idx],
+              payer, checkNumber, amount, issueDate, expireDate, status, memo,
+              photoUrl: photoUrl || checksReceived[idx].photoUrl
+            };
+          }
+        } else {
+          checksReceived.unshift({
+            id: 'chk-' + Date.now(),
+            payer,
+            checkNumber,
+            amount,
+            issueDate,
+            expireDate,
+            status,
+            memo,
+            photoUrl: photoUrl || ''
+          });
+        }
+        closeCheckModal();
+        renderChecksList();
+        updateCheckUrgentAlert();
+      };
+
+      if (photoInput.files && photoInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          proceedSave(evt.target.result);
+        };
+        reader.readAsDataURL(photoInput.files[0]);
+      } else {
+        proceedSave(null);
+      }
+    }
+
+    function markCheckCashed(checkId) {
+      const idx = checksReceived.findIndex(c => c.id === checkId);
+      if (idx !== -1) {
+        checksReceived[idx].status = 'Successfully Cashed';
+        renderChecksList();
+        updateCheckUrgentAlert();
+      }
+    }
+
+    function deleteCheck(checkId) {
+      checksReceived = checksReceived.filter(c => c.id !== checkId);
+      renderChecksList();
+      updateCheckUrgentAlert();
+    }
+
+    function openOfferCalculatorModal() {
+      document.getElementById('calculatorModal').classList.remove('hidden');
+      runCalculator();
+    }
+
+    function closeCalculatorModal() {
+      document.getElementById('calculatorModal').classList.add('hidden');
+    }
+
+    function runCalculator() {
+      const gross = parseFloat(document.getElementById('calcGross').value) || 0;
+      const expenses = parseFloat(document.getElementById('calcExpenses').value) || 0;
+      const years = parseFloat(document.getElementById('calcYears').value) || 1;
+
+      // Standard Fair Retainer: 40% fee on Gross, 0% interest on expenses
+      const fairFee = gross * 0.40;
+      const fairNet = gross - fairFee - expenses;
+
+      // Pulaski Terms: 40% on Gross, PLUS 1.5% monthly interest on advanced expenses
+      const predFee = gross * 0.40;
+      const totalMonths = years * 12;
+      const interestCharged = expenses * (0.015 * totalMonths);
+      const predNet = gross - predFee - expenses - interestCharged;
+      const diff = fairNet - predNet;
+
+      document.getElementById('resFairFee').textContent = `$${fairFee.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('resFairExp').textContent = `$${expenses.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('resFairNet').textContent = `$${fairNet.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+
+      document.getElementById('resPredFee').textContent = `$${predFee.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('resPredExp').textContent = `$${expenses.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('resPredInt').textContent = `$${interestCharged.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+      document.getElementById('resPredNet').textContent = `$${predNet.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+
+      document.getElementById('calcDiff').textContent = `$${diff.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+    }
+
+    function previewPhoto(url, title) {
+      document.getElementById('previewTitle').textContent = title || 'Document Preview';
+      document.getElementById('previewImageElement').src = url;
+      document.getElementById('imagePreviewModal').classList.remove('hidden');
+    }
+
+    function closePreviewModal() {
+      document.getElementById('imagePreviewModal').classList.add('hidden');
+    }
+
+    function alertBox(msg) {
+      const div = document.createElement('div');
+      div.className = 'fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-semibold z-50 flex items-center space-x-2 animate-bounce';
+      div.innerHTML = `
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        <span>${msg}</span>
+      `;
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 3500);
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
